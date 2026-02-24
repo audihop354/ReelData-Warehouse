@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "movie-analysis-lakehouse"
 version = "0.1.0"
-description = "MovieLens 32M medallion lakehouse pipeline with Dagster, Spark, and Snowflake."
+description = "MovieLens 32M medallion lakehouse pipeline with Dagster, Spark, Glue, Athena, and QuickSight."
 readme = "Readme.MD"
 requires-python = ">=3.11"
 dependencies = [
@@ -13,12 +13,9 @@ dependencies = [
   "dagster-webserver==1.11.11",
   "dagster-postgres==0.27.11",
   "dagster-aws==0.27.11",
-  "dagster-snowflake==0.27.11",
   "pyspark==3.5.5",
   "delta-spark==3.2.0",
   "boto3==1.37.38",
-  "snowflake-connector-python==3.15.0",
-  "requests==2.32.3",
   "python-dotenv==1.1.0",
 ]
 

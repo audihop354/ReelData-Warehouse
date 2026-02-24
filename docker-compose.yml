@@ -16,8 +16,11 @@ services:
     command: dagster-webserver -h 0.0.0.0 -p 3000 -m movie_pipeline.definitions
     env_file:
       - .env
+    environment:
+      JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
     ports:
       - "3000:3000"
+      - "4040:4040"   # Spark UI (available while a job is running)
     volumes:
       - ./:/opt/dagster/app
       - ./configs:/opt/dagster/dagster_home
@@ -30,23 +33,11 @@ services:
     command: dagster-daemon run -m movie_pipeline.definitions
     env_file:
       - .env
+    environment:
+      JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
     volumes:
       - ./:/opt/dagster/app
       - ./configs:/opt/dagster/dagster_home
-    depends_on:
-      - postgres
-
-  metabase:
-    image: metabase/metabase:latest
-    environment:
-      MB_DB_TYPE: postgres
-      MB_DB_DBNAME: ${METABASE_DB}
-      MB_DB_PORT: 5432
-      MB_DB_USER: ${POSTGRES_USER}
-      MB_DB_PASS: ${POSTGRES_PASSWORD}
-      MB_DB_HOST: postgres
-    ports:
-      - "3001:3000"
     depends_on:
       - postgres
 

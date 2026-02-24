@@ -26,8 +26,5 @@ restart:
 	$(COMPOSE) down
 	$(COMPOSE) up --build -d $(SERVICES)
 
-metabase:
-	$(COMPOSE) up --build -d $(SERVICES) metabase
-
 ps:
 	$(COMPOSE) ps
