@@ -9,7 +9,7 @@ services:
       - "5432:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
-
+      - ./configs/init-db.sql:/docker-entrypoint-initdb.d/init-metabase.sql
   dagster-webserver:
     build:
       context: .
@@ -20,13 +20,12 @@ services:
       JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
     ports:
       - "3000:3000"
-      - "4040:4040"   # Spark UI (available while a job is running)
+      - "4040:4040"  
     volumes:
       - ./:/opt/dagster/app
       - ./configs:/opt/dagster/dagster_home
     depends_on:
       - postgres
-
   dagster-daemon:
     build:
       context: .
@@ -40,6 +39,21 @@ services:
       - ./configs:/opt/dagster/dagster_home
     depends_on:
       - postgres
-
+  metabase:
+    image: metabase/metabase:latest
+    ports:
+      - "3001:3000"
+    environment:
+      MB_DB_TYPE: postgres
+      MB_DB_DBNAME: metabase
+      MB_DB_PORT: 5432
+      MB_DB_USER: ${POSTGRES_USER}
+      MB_DB_PASS: ${POSTGRES_PASSWORD}
+      MB_DB_HOST: postgres
+    depends_on:
+      - postgres
+    volumes:
+      - metabase-data:/metabase-data
 volumes:
   postgres-data:
+  metabase-data:

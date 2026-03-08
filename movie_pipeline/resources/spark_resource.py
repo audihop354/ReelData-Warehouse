@@ -43,7 +43,6 @@ class SparkResource(ConfigurableResource):
             .config("spark.delta.logStore.s3.impl", "io.delta.storage.S3SingleDriverLogStore")
             .config("spark.delta.logStore.s3a.impl", "io.delta.storage.S3SingleDriverLogStore")
         )
-
         spark = configure_spark_with_delta_pip(
             builder,
             extra_packages=[
@@ -51,7 +50,6 @@ class SparkResource(ConfigurableResource):
                 "com.amazonaws:aws-java-sdk-bundle:1.12.262",
             ],
         ).getOrCreate()
-
         spark.sparkContext.setLogLevel("WARN")
         return spark
 

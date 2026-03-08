@@ -6,8 +6,7 @@ from movie_pipeline.assets.bronze import bronze_links, bronze_movies, bronze_rat
 from movie_pipeline.resources.s3_resource import S3Resource
 from movie_pipeline.resources.spark_resource import SparkResource
 
-SILVER_KINDS = {"s3", "delta"}
-
+SILVER_KINDS = {"spark", "delta"}
 def _to_s3a(uri: str) -> str:
     return uri.replace("s3://", "s3a://", 1)
 

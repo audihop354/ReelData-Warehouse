@@ -1,8 +1,8 @@
 from functools import cached_property
+
 import boto3
 from dagster import ConfigurableResource
 from pydantic import Field
-
 
 class S3Resource(ConfigurableResource):
     aws_region: str = Field(default="ap-southeast-1")
