@@ -183,35 +183,41 @@ The Silver layer uses a star-schema-style model with dimensions and facts, while
 ```mermaid
 erDiagram
     MOVIE ||--o{ RATING : has
-    USER ||--o{ RATING : gives
+    USER ||--o{ RATING : provides
     MOVIE ||--o{ TAG : has
-    USER ||--o{ TAG : writes
+    USER ||--o{ TAG : creates
+    MOVIE ||--|| LINK : references
 
     MOVIE {
-        int movie_id
+        int movie_id PK
         string title
         int year
-        string genres
+        string genre
+        int genre_count
     }
 
     USER {
-        int user_id
+        int user_id PK
     }
 
     RATING {
-        int user_id
-        int movie_id
-        double rating
+        int user_id FK
+        int movie_id FK
+        float rating
         timestamp created_at
-        int year
     }
 
     TAG {
-        int user_id
-        int movie_id
+        int user_id FK
+        int movie_id FK
         string tag
         timestamp created_at
-        int year
+    }
+
+    LINK {
+        int movie_id PK
+        string imdb_id
+        string tmdb_id
     }
 ```
 ```
