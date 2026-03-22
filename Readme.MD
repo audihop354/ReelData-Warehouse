@@ -63,22 +63,6 @@ flowchart TD
     L --> E
     L --> F
     L --> G
-
-    classDef source fill:#f4f1de,stroke:#6b705c,stroke-width:1px,color:#1f2937;
-    classDef bronze fill:#d08c60,stroke:#8b5e3c,stroke-width:1px,color:#ffffff;
-    classDef silver fill:#c9d6df,stroke:#6b7a8f,stroke-width:1px,color:#1f2937;
-    classDef gold fill:#e9c46a,stroke:#b08900,stroke-width:1px,color:#1f2937;
-    classDef serving fill:#9ec1a3,stroke:#4f772d,stroke-width:1px,color:#1f2937;
-    classDef quality fill:#f28482,stroke:#bc4749,stroke-width:1px,color:#1f2937;
-    classDef orchestration fill:#7b6d8d,stroke:#4a4e69,stroke-width:1px,color:#ffffff;
-
-    class A source;
-    class B bronze;
-    class C,D silver;
-    class E,F gold;
-    class G,H,I serving;
-    class J,K quality;
-    class L orchestration;
 ```
 
 ### Pipeline Architecture Image
@@ -182,11 +166,11 @@ The Silver layer uses a star-schema-style model with dimensions and facts, while
 
 ```mermaid
 erDiagram
-    MOVIE ||--o{ RATING : has
     USER ||--o{ RATING : gives
-    MOVIE ||--o{ TAG : has
+    MOVIE ||--o{ RATING : receives
     USER ||--o{ TAG : writes
-    MOVIE ||--o{ MOVIE_GENRE_RATING : rolls_up_to
+    MOVIE ||--o{ TAG : has
+    MOVIE ||--o{ MOVIE_GENRE_RATING : aggregates
 
     MOVIE {
         int movie_id
@@ -218,7 +202,7 @@ erDiagram
     MOVIE_GENRE_RATING {
         int movie_id
         string genres
-        bigint rating_count
+        int rating_count
         double avg_rating
     }
 ```
