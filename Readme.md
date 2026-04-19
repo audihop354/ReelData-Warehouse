@@ -11,7 +11,7 @@ An end-to-end ELT lakehouse project built on the MovieLens 32M dataset with Dags
 This project takes raw CSV files, lands them in a Bronze layer on S3, transforms them into clean Silver dimension and fact tables, builds Gold analytical marts and SCD Type 2 snapshots, registers them in Glue, exposes them through Athena, and visualizes the results in Metabase.
 
 
-![Pipeline Architecture](.pipeline-architecture.png)
+![Pipeline Architecture](./pipeline-architecture.png)
 
 ## Project At A Glance
 
